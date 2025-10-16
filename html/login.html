@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="relative w-full h-60 opacity-90">
+        <img src="/assets/bg2.png" alt="banner" class="absolute w-full h-full object-cover brightness-50" />
+        <header class="absolute inset-0 flex items-center justify-center">
+            <h1 class="text-white text-3xl font-bold ">
+                Financial Management System
+            </h1>
+        </header>
+    </div>
+    <main class ="flex flex-auto justify-center mt-5">
+        <section class="w-80">
+             
+            <!-- Login Form -->
+            <div >
+               
+                <form>
+                    <!-- <img src="/assets/logo.png" alt="logo" class="size-16 justify-self-center" /> -->
+                    <h2 class="justify-self-center text-2xl font-bold mt-2 pb-8  ">
+                    Sign in to your account
+                    </h2>
+                    <div class="flex-col relative grow" >
+                        <label for="email" class="block text-sm/6 font-medium ">Email address</label>
+                        <div class="mt-2 ">
+                            <input id="email" type="email" required autocomplete="email" class ="  w-full  bg-gray-200 rounded-md "/>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class = "flex justify-between items-center pt-5">
+                            <label for="password" class="block text-sm/6 font-medium ">Password</label>
+                            <div class = "text-sm text-blue-600">
+                                <a href="#" >Forgot password?</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input id="password" type="password" required autocomplete="current-password" class ="bg-gray-200 w-full rounded-md"/>
+                        </div>
+                    </div>
+
+                    <div class="pt-5">
+                        <button type="submit" class="flex items-center justify-center bg-blue-600 w-full text-white rounded-md ">
+                            Sign in
+                        </button>
+                    </div>
+                </form>
+
+                <p class="pt-7 text-gray-400 text-xs justify-self-center ">
+                    Not a member?
+                    <a href="#" class="text-blue-600">Start a 14 day free trial</a>
+                </p>
+            </div>
+        </section>
+    </main>
+<script type="module" src="../dist/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!--
+AI Declaration:
+I used Claude to recommend me whether I choose use "justify" or "items".  
+No code was directly copied without modification.
+
+Reflection:
+It helped me organize my thoughts and understand which commands are useful in the situation.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Create an Invoice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+  <header>
+    <nav aria-label="Global" class="nav flex items-center justify-between">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="/assets/logo.png" alt="logo" class="logo" style="width:48px;" />
+        </a>
+      </div>
+      <div class="menu-links font-bold text-xs">
+        <a href="invoice.html" class="pr-7">Invoice</a>
+        <a href="#" class="pr-7">Quotation</a>
+        <a href="#" class="">About Us</a>
+      </div>
+      <div class="logout-link font-bold text-xs">
+        <a href="login.html">Log out →</a>
+      </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="relative w-full h-60 opacity-90">
+      <img src="/assets/bg2.png" alt="banner" class="absolute inset-0 w-full h-full object-cover brightness-50" />
+      <h1 class="absolute inset-0 flex items-center justify-center 
+                 text-white text-3xl font-bold">
+        Create a New Invoice
+      </h1>
+    </div>
+    </div>
+
+
+  </header>
+
+  <main>
+    <form class="invoice-form border rounded mt-6 mx-10">
+      <h2 class="text-xl font-bold px-5 py-5">Create New Invoice</h2>
+      <div class="flex flex-col px-5">
+        <label for="client_id">Client ID</label>
+        <input type="text" id="client_id" name="client_id" placeholder="1" class="border rounded py-1 px-3" />
+      </div>
+
+      <div class="flex flex-col px-5 mt-5">
+        <label for="quotation_number">Quotation Number</label>
+        <select id="quotation_number" name="quotation_number" class="border rounded py-1 px-3">
+          <option value="">Select the Quotation</option>
+          <option value="Q-2025-001">Q-2025-001</option>
+          <option value="Q-2025-002">Q-2025-002</option>
+          <option value="Q-2025-003">Q-2025-003</option>
+          <option value="Q-2025-004">Q-2025-004</option>
+          <option value="Q-2025-005">Q-2025-005</option>
+          <option value="Q-2025-006">Q-2025-006</option>
+          <option value="Q-2025-007">Q-2025-007</option>
+          <option value="Q-2025-008">Q-2025-008</option>
+        </select>
+      </div>
+
+      <div class="flex flex-col px-5 mt-5">
+        <label for="issue_date">Issue Date</label>
+        <input type="date" id="issue_date" name="issue_date" class="border rounded py-1 px-3" />
+      </div>
+
+      <div class="flex flex-col px-5 mt-5">
+        <label for="due_date">Due Date</label>
+        <input type="date" id="due_date" name="due_date" class="border rounded py-1 px-3" />
+      </div>
+
+      <div class="flex flex-col px-5 mt-5">
+        <label for="status">Status</label>
+        <select id="status" name="status" class="border rounded py-1 px-3">
+          <option value="Paid">Paid</option>
+          <option value="Unpaid">Unpaid</option>
+        </select>
+      </div>
+
+      <div class="flex flex-col px-5 mt-5">
+        <label for="subtotal">Subtotal</label>
+        <input type="number" id="subtotal" name="subtotal" placeholder="0" class="border rounded py-1 px-3" />
+      </div>
+
+      <div class="flex flex-col px-5 mt-5">
+        <label for="tax_amount">Tax Amount <span class="float-right text-xs pt-1 text-gray-500">(7%)</span></label>
+        <input type="number" id="tax_amount" name="tax_amount" placeholder="0" class="border rounded py-1 px-3" />
+      </div>
+
+      <div class="flex flex-col px-5 mt-5">
+        <label for="total_amount">Total Amount</label>
+        <input type="number" id="total_amount" name="total_amount" placeholder="0" class="border rounded py-1 px-3" />
+      </div>
+
+      <div class="mt-10 mb-5 mx-5 text-white ">
+        <a href="invoice.html" class="bg-[rgb(13,84,144)] border rounded px-4 py-1">Create Invoice</a>
+      </div>
+    </form>
+  </main>
+
+  <footer class="mt-[30px] footer flex items-center justify-center text-sm bg-[rgb(13,84,144)] text-white w-full p-3">
+    <p>Use for Tailwind Demo &copy; Faculty of ICT, Mahidol University</p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Invoice Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <header>
+        <nav aria-label="Global" class="nav flex items-center justify-between">
+            <div class="logo-container">
+                <a href="index.html">
+                    </a>
+            </div>
+            <div class="menu-links font-bold text-xs">
+                <a href="invoice.html" class="pr-7">Invoice</a>
+                <a href="#" class="pr-7">Quotation</a>
+                <a href="#" class="">About Us</a>
+            </div>
+            <div class="logout-link font-bold text-xs">
+                <a href="login.html">Log out →</a>
+            </div>
+        </nav>
+
+        <div class="relative w-full h-60 opacity-90">
+            <img src="../assets/bg2.png" alt="banner" class="absolute inset-0 w-full h-full object-cover brightness-50" />
+            <h1 class="absolute inset-0 flex items-center justify-center 
+                 text-white text-3xl font-bold">
+                Invoice Management System
+            </h1>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <section class="mt-[90px] ml-5 border shadow-md pl-[15px] mr-5 pt-5 pb-5 ">
+                <form id="search-form" class="flex flex-row items-center block">
+                    <label class="pr-4">Search:</label>
+                    
+                    <input id="search-client-id" type="text" placeholder="Client Id"
+                        class="border rounded px-3 py-1 relative pr-6 mr-4" />
+                    <input id="search-company-name" type="text" placeholder="Company Name"
+                        class="border rounded px-3 py-1 relative pr-6 mr-4" />
+                        
+                    <input id="search-client-email" type="email" placeholder="Client Email" class="border rounded px-3 py-1 pr-6" />
+                   
+                        <label for="start-date" class="pl-3">Issue Date From</label>
+                        <input type="date" id="start-date" class="border rounded px-3 py-1" pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD" />
+                    
+                        <label for="end-date" class="pl-3 pr-3">To</label>
+                        <input type="date" id="end-date" class="border rounded px-3 py-1 pl-2" pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD" />
+                    
+                    <button type="submit"
+                        class=" bg-[rgb(13,84,144)] border rounded pl-3 pr-3 pt-1 pb-1 text-white text-sm ml-4">Search</button>
+                </form>
+
+                <section class="pt-3 ">
+                    <button class="pr-2  pl-2 bg-[rgb(13,84,144)] border rounded text-white ">All</button>
+                    <button class="pr-3 pl-3 bg-gray-200 text-gray-600 border rounded">Paid</button>
+                    <button class="pr-3 pl-3 bg-gray-200 text-gray-600 border rounded">Unpaid</button>
+                </section>
+            </section>
+
+            <section>
+                <div>
+                    <div class="mt-5 ml-5 border rounded shadow-md  mr-5 pt-5 ">
+                        <section class=" flex  w-full justify-between  ">
+                            <div class="pl-[15px]">
+                                <h2 class="text-xl font-bold ">Invoices</h2>
+                                <p class="text-sm text-gray-600">A list of all the invoices in your account.</p>
+                            </div>
+                            <a href="create_invoice.html"
+                                class="text-white mr-5 pr-1 pl-1 h-7 bg-[rgb(13,84,144)]  border rounded">
+                                + Create an Invoice
+                            </a>
+                        </section>
+
+                        <section class=" flex  w-full justify-between mt-5 border-t  ">
+                            <table class=" flex-row w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="pl-[15px] pr-6 py-3 bg-gray-100">Invoice#</th>
+                                        <th class="px-10 py-3 bg-gray-100">Issue Date</th>
+                                        <th class="px-6 py-3 bg-gray-100">Due Date</th>
+                                        <th class="px-6 py-3 bg-gray-100">Clientid</th>
+                                        <th class="px-8 py-3 pr-[30px] bg-gray-100">Quotation#</th>
+                                        <th class="px-6 py-3 pl-[5px] text-start bg-gray-100">Amount</th>
+                                        <th class="px-6 py-3  pl-[5px] text-start bg-gray-100">Company</th>
+                                        <th class="px-6 py-3  pl-[5px] text-start bg-gray-100">Email</th>
+                                        <th class="px-6 py-3 flex justify-end text-end bg-gray-100">Status</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody id="invoice-table-body">
+                                    <tr>
+                                        <td colspan="7" class="text-center py-5 text-gray-500">
+                                            Loading invoices...
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer
+        class="mt-[150px] footer flex items-center justify-center text-sm bg-[rgb(13,84,144)] text-white w-full p-3">
+        <p>Use for Tailwind Demo &copy; Faculty of ICT, Mahidol University</p>
+    </footer>
+    
+    <script type="module" src="../dist/invoice.js"></script>   
+</body>
+
+</html>
