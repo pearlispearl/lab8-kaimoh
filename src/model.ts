@@ -6,10 +6,10 @@ export interface Invoice {
   issue_date?: string;
   due_date?: string;
   status?: string;
-  subtotal?: number;
-  tax_amount?: number;
-  total_amount?: number;
-  amount_paid?: number;
+  subtotal?: string;
+  tax_amount?: string;
+  total_amount?: string;
+  amount_paid?: string;
   currency?: string;
   notes?: string;
   created_by: number;

@@ -10,18 +10,18 @@ interface SearchCriteria {
   endDate?: string;
 }
 
-function normalizeToDateOnly(dateString?: string): Date | null {
-  if (!dateString) return null;
+// function normalizeToDateOnly(dateString?: string): Date | null {
+//   if (!dateString) return null;
 
-  // Extract only the YYYY-MM-DD part
-  const match = dateString.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!match) return null;
+//   // Extract only the YYYY-MM-DD part
+//   const match = dateString.match(/^(\d{4})-(\d{2})-(\d{2})/);
+//   if (!match) return null;
 
-  const [_, year, month, day] = match;
-  // Create date in local timezone (midnight local time)
-  const localDate = new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
-  return localDate;
-}
+//   const [_, year, month, day] = match;
+//   // Create date in local timezone (midnight local time)
+//   const localDate = new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
+//   return localDate;
+// }
 async function searchInvoices(criteria: SearchCriteria): Promise<Invoice[]> {
   const allInvoices = await fetchInvoices();
   const results: Invoice[] = [];
@@ -81,6 +81,35 @@ async function searchInvoices(criteria: SearchCriteria): Promise<Invoice[]> {
   return results;
 }
 
+export async function createInvoice(invoiceData: Partial<Invoice>): Promise<Invoice> {
+    const token = getAccessToken(); // 🔑 Get token internally
+    if (!token) {
+        removeAccessToken(); 
+        window.location.href = 'login.html';
+        throw new Error('No access token found. Redirecting to login.');
+    }
+
+    const response = await fetch(`${BASE_URL}/invoice`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`, 
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(invoiceData)
+    });
+    
+    if (response.status === 401) {
+        removeAccessToken(); 
+        window.location.href = 'login.html';
+        throw new Error('Token expired. Re-authentication required.');
+    }
+
+    if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(errorBody.message || "Failed to create invoice");
+    }
+    return response.json();
+}
 
 async function fetchInvoices(): Promise<Invoice[]> {
     const token = getAccessToken(); // 🔑 Retrieve the token from localStorage
@@ -202,20 +231,6 @@ async function displayInvoices(invoices: Invoice[]) {
       </tr>
     `;
   }
-    //     return `
-    //         <tr class="border-b">
-    //             <td class="pl-[15px] pr-6 py-2">${invoice.invoice_number || 'N/A'}</td>
-    //             <td class="px-10 py-2">${invoice.issue_date || 'N/A'}</td>
-    //             <td class="px-6 pr-[80px] py-2">${invoice.due_date || 'N/A'}</td>
-    //             <td class="px-6 pr-[80px] py-2">${invoice.client_id || 'N/A'}</td> 
-    //             <td class="px-8 py-2 pr-[130px]">${invoice.quotation_number || 'N/A'}</td>
-    //             <td class="px-6 py-2 pr-[40px] pl-[5px] text-start">฿${Number(invoice.subtotal || 0).toFixed(2)}</td> 
-    //             <td class="px-6 py-2 pr-[40px] pl-[5px] text-start">฿${invoice.company_name}</td>
-    //             <td class="px-6 py-2 flex justify-end text-end ${statusClass} font-bold">${invoice.status || 'N/A'}</td>
-    //         </tr>
-    //     `;
-    // }).join('');
-
     container.innerHTML = html;
 }
 

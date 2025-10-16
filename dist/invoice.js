@@ -10,18 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { removeAccessToken, getAccessToken } from './tokenService.js';
 const BASE_URL = 'http://203.159.93.114:3100';
 const INVOICE_API_URL = 'http://203.159.93.114:3100/invoice';
-function normalizeToDateOnly(dateString) {
-    if (!dateString)
-        return null;
-    // Extract only the YYYY-MM-DD part
-    const match = dateString.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (!match)
-        return null;
-    const [_, year, month, day] = match;
-    // Create date in local timezone (midnight local time)
-    const localDate = new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
-    return localDate;
-}
+// function normalizeToDateOnly(dateString?: string): Date | null {
+//   if (!dateString) return null;
+//   // Extract only the YYYY-MM-DD part
+//   const match = dateString.match(/^(\d{4})-(\d{2})-(\d{2})/);
+//   if (!match) return null;
+//   const [_, year, month, day] = match;
+//   // Create date in local timezone (midnight local time)
+//   const localDate = new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0);
+//   return localDate;
+// }
 function searchInvoices(criteria) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a, _b;
@@ -74,6 +72,34 @@ function searchInvoices(criteria) {
         //     }
         //   }
         return results;
+    });
+}
+export function createInvoice(invoiceData) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = getAccessToken(); // 🔑 Get token internally
+        if (!token) {
+            removeAccessToken();
+            window.location.href = 'login.html';
+            throw new Error('No access token found. Redirecting to login.');
+        }
+        const response = yield fetch(`${BASE_URL}/invoice`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(invoiceData)
+        });
+        if (response.status === 401) {
+            removeAccessToken();
+            window.location.href = 'login.html';
+            throw new Error('Token expired. Re-authentication required.');
+        }
+        if (!response.ok) {
+            const errorBody = yield response.json();
+            throw new Error(errorBody.message || "Failed to create invoice");
+        }
+        return response.json();
     });
 }
 function fetchInvoices() {

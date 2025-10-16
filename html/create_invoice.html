@@ -1,117 +1,126 @@
-<!--
-AI Declaration:
-I used Claude to recommend me whether I choose use "justify" or "items".  
-No code was directly copied without modification.
-
-Reflection:
-It helped me organize my thoughts and understand which commands are useful in the situation.
--->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
-  <title>Create an Invoice</title>
+  <title>Create a New Invoice</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
 </head>
 
 <body>
   <header>
-    <nav aria-label="Global" class="nav flex items-center justify-between">
+    <nav class="flex place-content-between m-7 font-semibold">
       <div class="logo-container">
-        <a href="index.html">
-          <img src="/assets/logo.png" alt="logo" class="logo" style="width:48px;" />
-        </a>
+        <a href="./invoice.html"></a>
       </div>
-      <div class="menu-links font-bold text-xs">
-        <a href="invoice.html" class="pr-7">Invoice</a>
-        <a href="#" class="pr-7">Quotation</a>
-        <a href="#" class="">About Us</a>
+      <div class="menu">
+        <a class="p-5" href="./invoice.html">Invoice</a>
+        <a class="p-5" href="#">Quotation</a>
+        <a class="p-5" href="#">About Us</a>
       </div>
-      <div class="logout-link font-bold text-xs">
-        <a href="login.html">Log out →</a>
+      <div class="logout">
+        <a href="./login.html">Log out →</a>
       </div>
     </nav>
-
-    <!-- Banner -->
-    <div class="relative w-full h-60 opacity-90">
-      <img src="/assets/bg2.png" alt="banner" class="absolute inset-0 w-full h-full object-cover brightness-50" />
-      <h1 class="absolute inset-0 flex items-center justify-center 
-                 text-white text-3xl font-bold">
-        Create a New Invoice
-      </h1>
-    </div>
-    </div>
-
-
+    <section class="flex items-center justify-center relative w-full h-60">
+      <img src="/assets/bg2.png" class="absolute w-full h-full object-cover brightness-50" />
+      <h1 class="absolute font-bold text-[30px] text-white">Create a New Invoice</h1>
+    </section>
   </header>
 
-  <main>
-    <form class="invoice-form border rounded mt-6 mx-10">
-      <h2 class="text-xl font-bold px-5 py-5">Create New Invoice</h2>
-      <div class="flex flex-col px-5">
-        <label for="client_id">Client ID</label>
-        <input type="text" id="client_id" name="client_id" placeholder="1" class="border rounded py-1 px-3" />
+  <main class="flex items-center justify-center">
+    <!-- The form now has an ID for our script to find -->
+    <form id="create-invoice-form" class="invoice-form m-10 border-2 p-6 rounded relative justify-self-center w-full max-w-4xl">
+      <h2 class="font-bold text-[25px] pb-4">New Invoice Details</h2>
+      
+      <!-- Using a grid for better layout -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Column 1 -->
+        <div>
+          <div>
+            <label for="invoice_number">Invoice number *</label>
+            <input placeholder="INV-Q-2025-001" class="mb-3 border-2 rounded p-1.5 w-full" type="text" id="invoice_number" name="invoice_number" required />
+          </div>
+          <div>
+            <label for="client_id">Client ID *</label>
+            <input placeholder="e.g., 1" class="mb-3 border-2 rounded p-1.5 w-full" type="number" id="client_id" name="client_id" required />
+          </div>
+          <div>
+            <label for="quotation_number">Quotation Number</label>
+            <input placeholder="Q-2025-001" class="mb-3 border-2 rounded p-1.5 w-full" type="text" id="quotation_number" name="quotation_number" required /> 
+          </div>
+          <div>
+            <label for="status">Status *</label>
+            <select class="mb-3 border-2 rounded p-1.5 w-full" id="status" name="status">
+              <option value="Pending">Pending</option>
+              <option value="Paid">Paid</option>
+              <option value="Unpaid">Unpaid</option>
+              <option value="Overdue">Overdue</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div>
+          <div>
+            <label for="issue_date">Issue Date *</label>
+            <input placeholder="2025-01-01T00:00:00.000Z" class="mb-3 border-2 rounded p-1.5 w-full" type="text" id="issue_date" name="issue_date" required />
+          </div>
+          <div>
+            <label for="due_date">Due Date *</label>
+            <input placeholder="2025-01-02T00:00:00.000Z"  class="mb-3 border-2 rounded p-1.5 w-full" type="text" id="due_date" name="due_date" required />
+          </div>
+           <div>
+            <label for="currency">Currency *</label>
+            <input value="THB" class="mb-3 border-2 rounded p-1.5 w-full" type="text" id="currency" name="currency" required />
+          </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div>
+          <div>
+            <!-- The ID is now 'subtotal' to match the API docs -->
+            <label for="subtotal">Subtotal *</label>
+            <input class="mb-3 border-2 rounded p-1.5 w-full" type="number" id="subtotal" name="subtotal" placeholder="0" required step="0.01"/>
+          </div>
+          <div>
+            <label class="flex place-content-between" for="tax_amount">Tax Amount * <span class="font-bold text-[12px] text-gray-400">(7%)</span></label>
+            <input class="mb-3 border-2 rounded p-1.5 w-full" type="number" id="tax_amount" name="tax_amount" placeholder="0" required step="0.01"/>
+          </div>
+          <div>
+            <label for="total_amount">Total Amount *</label>
+            <input class="border-2 rounded p-1.5 w-full" type="number" id="total_amount" name="total_amount" placeholder="0" required step="0.01"/>
+          </div>
+           <div>
+            <label for="created_by">Created by *</label>
+            <input class="border-2 rounded p-1.5 w-full" type="number" id="created_by" name="created_by" placeholder="0" required step="0.01"/>
+          </div>
+        </div>
+
+        <!-- Notes field spanning full width -->
+        <div class="md:col-span-2 lg:col-span-3">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" rows="4" class="border-2 rounded p-1.5 w-full"></textarea>
+        </div>
       </div>
 
-      <div class="flex flex-col px-5 mt-5">
-        <label for="quotation_number">Quotation Number</label>
-        <select id="quotation_number" name="quotation_number" class="border rounded py-1 px-3">
-          <option value="">Select the Quotation</option>
-          <option value="Q-2025-001">Q-2025-001</option>
-          <option value="Q-2025-002">Q-2025-002</option>
-          <option value="Q-2025-003">Q-2025-003</option>
-          <option value="Q-2025-004">Q-2025-004</option>
-          <option value="Q-2025-005">Q-2025-005</option>
-          <option value="Q-2025-006">Q-2025-006</option>
-          <option value="Q-2025-007">Q-2025-007</option>
-          <option value="Q-2025-008">Q-2025-008</option>
-        </select>
-      </div>
-
-      <div class="flex flex-col px-5 mt-5">
-        <label for="issue_date">Issue Date</label>
-        <input type="date" id="issue_date" name="issue_date" class="border rounded py-1 px-3" />
-      </div>
-
-      <div class="flex flex-col px-5 mt-5">
-        <label for="due_date">Due Date</label>
-        <input type="date" id="due_date" name="due_date" class="border rounded py-1 px-3" />
-      </div>
-
-      <div class="flex flex-col px-5 mt-5">
-        <label for="status">Status</label>
-        <select id="status" name="status" class="border rounded py-1 px-3">
-          <option value="Paid">Paid</option>
-          <option value="Unpaid">Unpaid</option>
-        </select>
-      </div>
-
-      <div class="flex flex-col px-5 mt-5">
-        <label for="subtotal">Subtotal</label>
-        <input type="number" id="subtotal" name="subtotal" placeholder="0" class="border rounded py-1 px-3" />
-      </div>
-
-      <div class="flex flex-col px-5 mt-5">
-        <label for="tax_amount">Tax Amount <span class="float-right text-xs pt-1 text-gray-500">(7%)</span></label>
-        <input type="number" id="tax_amount" name="tax_amount" placeholder="0" class="border rounded py-1 px-3" />
-      </div>
-
-      <div class="flex flex-col px-5 mt-5">
-        <label for="total_amount">Total Amount</label>
-        <input type="number" id="total_amount" name="total_amount" placeholder="0" class="border rounded py-1 px-3" />
-      </div>
-
-      <div class="mt-10 mb-5 mx-5 text-white ">
-        <a href="invoice.html" class="bg-[rgb(13,84,144)] border rounded px-4 py-1">Create Invoice</a>
+      <!-- Form Actions -->
+      <div class="mt-8 flex justify-end gap-4">
+        <a href="/invoice.html" class="text-[14px] rounded-md bg-gray-500 text-white px-4 py-2">Cancel</a>
+        <!-- The button is now a proper submit button -->
+        <button class="text-[14px] rounded-md bg-sky-700 text-white px-4 py-2" type="submit">
+          Create Invoice
+        </button>
       </div>
     </form>
   </main>
 
-  <footer class="mt-[30px] footer flex items-center justify-center text-sm bg-[rgb(13,84,144)] text-white w-full p-3">
-    <p>Use for Tailwind Demo &copy; Faculty of ICT, Mahidol University</p>
+  <footer class="bg-sky-800 py-3 text-white flex items-center justify-center w-full mt-10">
+    <p>Use for Demo &copy; Faculty of ICT, Mahidol University</p>
   </footer>
-</body>
 
+  <!-- Script that handles the form submission -->
+  <script type="module" src="../dist/create_invoice.js"></script>
+</body>
 </html>
